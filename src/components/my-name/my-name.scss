@@ -1,0 +1,71 @@
+
+my-name {
+  font-family: Courier New, Courier, monospace;
+  font-weight: bold;
+}
+
+.carousel-container {
+  padding: 70px 0;
+  margin: 0 auto;
+  width: 200px;
+  height: 500px;
+  position: relative;
+  perspective: 1000px;
+}
+.carousel {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+.carousel img {
+  width:200px;
+  height:200px;
+  margin-top: 10px;
+}
+.carousel-slide-item {
+  display: block;
+  position: absolute;
+  background:#000;
+  width: 200px;
+  height: 300px;
+  font-size: large;
+  text-align: center;
+  color: #FFF;
+  opacity: 0.95;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 25em) {
+  
+      .carousel-container {
+        padding: 70px 0;
+        margin: 0 auto;
+        width: 250px;
+        height: 500px;
+        position: relative;
+        perspective: 1000px;
+      }
+      .carousel {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        transform-style: preserve-3d;
+        transition: transform 1s;
+      }
+     
+      .carousel-slide-item {
+        display: block;
+        position: absolute;
+        background:#000;
+        width: 200px;
+        height: auto;
+        font-size: large;
+        text-align: center;
+        color: #FFF;
+        opacity: 0.95;
+        border-radius: 10px;
+      }
+  
+  }
