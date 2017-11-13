@@ -8,7 +8,10 @@ import '@stencil/router';
 
 import '@ionic/core';
 
-import { MyName as MyName } from './components/my-name/my-name';
+
+import {
+  MyName as MyName
+} from './components/my-name/my-name';
 
 interface HTMLMyNameElement extends MyName, HTMLElement {
 }

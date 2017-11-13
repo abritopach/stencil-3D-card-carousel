@@ -1,5 +1,7 @@
-import { Component, Prop, State, Element } from '@stencil/core';
+import { Component, Prop, State, Element, Listen } from '@stencil/core';
+import 'hammerjs';
 
+import { LoadingController } from '@ionic/core';
 
 @Component({
   tag: 'my-name',
@@ -17,7 +19,20 @@ export class MyName {
 
   @Element() myNameEl: HTMLElement;
 
+  @Prop({ connect: 'ion-loading-controller' }) loadingCtrl: LoadingController;
+
+  @Listen('body:scroll')
+  handleScroll(ev) {
+    console.log('the body was scrolled', ev);
+  }
+
+  @Listen('keydown')
+  handleKeyDown(ev){
+    console.log("keydown");
+  }
+
   componentWillLoad() {
+
     this.items = [
                 {
                     id: 1,
@@ -179,11 +194,16 @@ export class MyName {
 
             ];
 
-            let degree = 0;
-            this.items.map((item) => {
-              item["currentPlacement"] = degree;
-              degree = degree + 60;
-            });
+            this.loadingCtrl.create({ content: 'Load 3D Card Carousel...' }).then(loading => {
+              loading.present().then(() => {
+                let degree = 0;
+                this.items.map((item) => {
+                  item["currentPlacement"] = degree;
+                  degree = degree + 60;
+                });
+                loading.dismiss();
+                })
+              });
   }
 
   onHandleClick(item, event: UIEvent) {
@@ -192,6 +212,14 @@ export class MyName {
     this.currentDeg = this.currentDeg + 60;
     //console.log(this.myNameEl.querySelector('.carousel'));
     this.applyStyle();
+  }
+
+  onSwipeLeft(item, event: UIEvent) {
+    console.log("swipeLeft");
+  }
+
+  onSwipeRight(item, event: UIEvent) {
+    console.log("swipeRight");
   }
 
   applyStyle() {
