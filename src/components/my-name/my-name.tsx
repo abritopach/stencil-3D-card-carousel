@@ -1,7 +1,11 @@
-import { Component, Prop, State, Element, Listen } from '@stencil/core';
-import 'hammerjs';
-
+import { Component, Prop, State, Element } from '@stencil/core';
 import { LoadingController } from '@ionic/core';
+
+interface TouchEvent extends UIEvent {
+  touches:TouchList;
+  targetTouches:TouchList;
+  changedTouches:TouchList;
+};
 
 @Component({
   tag: 'my-name',
@@ -21,17 +25,20 @@ export class MyName {
 
   @Prop({ connect: 'ion-loading-controller' }) loadingCtrl: LoadingController;
 
-  @Listen('body:scroll')
-  handleScroll(ev) {
-    console.log('the body was scrolled', ev);
-  }
-
-  @Listen('keydown')
-  handleKeyDown(ev){
-    console.log("keydown");
-  }
+  swipedir: string;
+  startX: number;
+  startY: number;
+  distX: number;
+  distY: number;
+  threshold: number = 150; //required min distance traveled to be considered swipe.
+  restraint: number = 100; // maximum distance allowed at the same time in perpendicular direction.
+  allowedTime: number = 300; // maximum time allowed to travel that distance.
+  elapsedTime: any;
+  startTime: any;
 
   componentWillLoad() {
+
+    //window.addEventListener('keydown', this.onHandleKeyDown.bind(this));
 
     this.items = [
                 {
@@ -201,26 +208,152 @@ export class MyName {
                   item["currentPlacement"] = degree;
                   degree = degree + 60;
                 });
+
                 loading.dismiss();
                 })
               });
   }
 
+  componentDidLoad() {
+    console.log('The component has been rendered');
+
+    /*
+    let ele = this.myNameEl.querySelector('.carousel');
+    console.log(ele);
+
+    let self = this;
+    this.swipeDetect(ele, function(swipedir) {
+        console.log(ele);
+        console.log("swipeDetect: " + swipedir);
+        // swipedir contains either "none", "left", "right", "top", or "down".
+        if (swipedir =='left') {
+          self.currentDeg = self.currentDeg - 60;
+          self.applyStyle();
+        }
+        if (swipedir == 'right') {
+          self.currentDeg = self.currentDeg + 60;
+          self.applyStyle();
+        }
+    });
+    */
+  }
+
   onHandleClick(item, event: UIEvent) {
-    //console.log("onHandleClick");
-    //console.log(item);
-    this.currentDeg = this.currentDeg + 60;
+    console.log("onHandleClick");
+    console.log(item);
+    //this.currentDeg = this.currentDeg + 60;
     //console.log(this.myNameEl.querySelector('.carousel'));
-    this.applyStyle();
+    //this.applyStyle();
   }
 
-  onSwipeLeft(item, event: UIEvent) {
-    console.log("swipeLeft");
+  onHandleTouchStart(event: TouchEvent) {
+    console.log("onHandleTouchStart");
+    let touchobj = event.changedTouches[0];
+    this.swipedir = 'none';
+    this.distX = 0;
+    this.distY = 0;
+    this.startX = touchobj.pageX;
+    this.startY = touchobj.pageY;
+    this.startTime = new Date().getTime(); // record time when finger first makes contact with surface
+    event.preventDefault();
   }
 
-  onSwipeRight(item, event: UIEvent) {
-    console.log("swipeRight");
+  onHandleTouchEnd(item, event: TouchEvent) {
+    console.log("onHandleTouchEnd");
+    let touchobj = event.changedTouches[0];
+    this.distX = touchobj.pageX - this.startX; // get horizontal dist traveled by finger while in contact with surface
+    this.distY = touchobj.pageY - this.startY; // get vertical dist traveled by finger while in contact with surface
+    this.elapsedTime = new Date().getTime() - this.startTime; // get time elapsed
+    if (this.elapsedTime <= this.allowedTime) { // first condition for awipe met
+        if (Math.abs(this.distX) >= this.threshold && Math.abs(this.distY) <= this.restraint){ // 2nd condition for horizontal swipe met
+            this.swipedir = (this.distX < 0)? 'left' : 'right'; // if dist traveled is negative, it indicates left swipe
+        }
+        else if (Math.abs(this.distY) >= this.threshold && Math.abs(this.distX) <= this.restraint){ // 2nd condition for vertical swipe met
+            this.swipedir = (this.distY < 0)? 'up' : 'down'; // if dist traveled is negative, it indicates up swipe
+        }
+    }
+    console.log(this.swipedir);
+    this.handleSwipe(item);
+    event.preventDefault();
   }
+
+  onHandleTouchMove(event: UIEvent) {
+    console.log("onHandleTouchMove");
+    event.preventDefault(); // prevent scrolling when inside DIV
+  }
+
+  handleSwipe(item) {
+    if (this.swipedir =='left') {
+      this.currentDeg = this.currentDeg - 60;
+      this.applyStyle();
+    }
+    if (this.swipedir == 'right') {
+      this.currentDeg = this.currentDeg + 60;
+      this.applyStyle();
+    }
+    if (this.swipedir == 'none') {
+      console.log("onHandleClick");
+      console.log(item);
+    }
+  }
+
+  // Detect swipe event.
+  // Source: http://www.javascriptkit.com/javatutors/touchevents2.shtml
+
+  /*
+  swipeDetect(el, callback){
+    
+      let touchsurface = el,
+      swipedir,
+      startX,
+      startY,
+      distX,
+      distY,
+      threshold = 150, //required min distance traveled to be considered swipe.
+      restraint = 100, // maximum distance allowed at the same time in perpendicular direction.
+      allowedTime = 300, // maximum time allowed to travel that distance.
+      elapsedTime,
+      startTime,
+      handleswipe = callback || function(swipedir){};
+    
+      touchsurface.addEventListener('touchstart', function(e) {
+          console.log("touchstart");
+          console.log(e.target);
+          
+          let touchobj = e.changedTouches[0];
+          swipedir = 'none';
+          distX = 0;
+          distY = 0;
+          startX = touchobj.pageX;
+          startY = touchobj.pageY;
+          startTime = new Date().getTime(); // record time when finger first makes contact with surface
+          e.preventDefault();
+      }, false)
+    
+      touchsurface.addEventListener('touchmove', function(e) {
+          console.log("touchmove");
+          e.preventDefault(); // prevent scrolling when inside DIV
+      }, false)
+    
+      touchsurface.addEventListener('touchend', function(e) {
+          console.log("touchend");
+          let touchobj = e.changedTouches[0];
+          distX = touchobj.pageX - startX; // get horizontal dist traveled by finger while in contact with surface
+          distY = touchobj.pageY - startY; // get vertical dist traveled by finger while in contact with surface
+          elapsedTime = new Date().getTime() - startTime; // get time elapsed
+          if (elapsedTime <= allowedTime) { // first condition for awipe met
+              if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint){ // 2nd condition for horizontal swipe met
+                  swipedir = (distX < 0)? 'left' : 'right'; // if dist traveled is negative, it indicates left swipe
+              }
+              else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint){ // 2nd condition for vertical swipe met
+                  swipedir = (distY < 0)? 'up' : 'down'; // if dist traveled is negative, it indicates up swipe
+              }
+          }
+          handleswipe(swipedir);
+          e.preventDefault();
+      }, false)
+  }
+  */
 
   applyStyle() {
     let ele = this.myNameEl.querySelector('.carousel');
@@ -239,7 +372,8 @@ export class MyName {
         '-webkit-transform': 'rotateY('+item.currentPlacement+'deg)  translateZ('+this.tz+'px)'
       };
       return (
-        <div class="carousel-slide-item" style={divStyle} onClick={this.onHandleClick.bind(this, item)}>
+        <div class="carousel-slide-item" style={divStyle} onClick={this.onHandleClick.bind(this, item)} onTouchStart={this.onHandleTouchStart.bind(this)}
+        onTouchEnd={this.onHandleTouchEnd.bind(this, item)} onTouchMove={this.onHandleTouchMove.bind(this)}>
           <img src={item.imgUrl}/>
           <p>{item.description}</p>
         </div>
