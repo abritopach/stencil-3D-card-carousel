@@ -30,9 +30,9 @@ export class MyName {
   startY: number;
   distX: number;
   distY: number;
-  threshold: number = 150; //required min distance traveled to be considered swipe.
-  restraint: number = 100; // maximum distance allowed at the same time in perpendicular direction.
-  allowedTime: number = 300; // maximum time allowed to travel that distance.
+  threshold: number = 150; // Required min distance traveled to be considered swipe.
+  restraint: number = 100; // Maximum distance allowed at the same time in perpendicular direction.
+  allowedTime: number = 300; // Maximum time allowed to travel that distance.
   elapsedTime: any;
   startTime: any;
 
@@ -241,6 +241,7 @@ export class MyName {
   onHandleClick(item, event: UIEvent) {
     console.log("onHandleClick");
     console.log(item);
+    this.applyResizeStyle(item);
     //this.currentDeg = this.currentDeg + 60;
     //console.log(this.myNameEl.querySelector('.carousel'));
     //this.applyStyle();
@@ -254,22 +255,22 @@ export class MyName {
     this.distY = 0;
     this.startX = touchobj.pageX;
     this.startY = touchobj.pageY;
-    this.startTime = new Date().getTime(); // record time when finger first makes contact with surface
+    this.startTime = new Date().getTime(); // Record time when finger first makes contact with surface.
     event.preventDefault();
   }
 
   onHandleTouchEnd(item, event: TouchEvent) {
     console.log("onHandleTouchEnd");
     let touchobj = event.changedTouches[0];
-    this.distX = touchobj.pageX - this.startX; // get horizontal dist traveled by finger while in contact with surface
-    this.distY = touchobj.pageY - this.startY; // get vertical dist traveled by finger while in contact with surface
-    this.elapsedTime = new Date().getTime() - this.startTime; // get time elapsed
-    if (this.elapsedTime <= this.allowedTime) { // first condition for awipe met
-        if (Math.abs(this.distX) >= this.threshold && Math.abs(this.distY) <= this.restraint){ // 2nd condition for horizontal swipe met
-            this.swipedir = (this.distX < 0)? 'left' : 'right'; // if dist traveled is negative, it indicates left swipe
+    this.distX = touchobj.pageX - this.startX; // Get horizontal dist traveled by finger while in contact with surface.
+    this.distY = touchobj.pageY - this.startY; // Get vertical dist traveled by finger while in contact with surface.
+    this.elapsedTime = new Date().getTime() - this.startTime; // Get time elapsed.
+    if (this.elapsedTime <= this.allowedTime) { // First condition for awipe met.
+        if (Math.abs(this.distX) >= this.threshold && Math.abs(this.distY) <= this.restraint){ // 2nd condition for horizontal swipe met.
+            this.swipedir = (this.distX < 0)? 'left' : 'right'; // If dist traveled is negative, it indicates left swipe.
         }
-        else if (Math.abs(this.distY) >= this.threshold && Math.abs(this.distX) <= this.restraint){ // 2nd condition for vertical swipe met
-            this.swipedir = (this.distY < 0)? 'up' : 'down'; // if dist traveled is negative, it indicates up swipe
+        else if (Math.abs(this.distY) >= this.threshold && Math.abs(this.distX) <= this.restraint){ // 2nd condition for vertical swipe met.
+            this.swipedir = (this.distY < 0)? 'up' : 'down'; // If dist traveled is negative, it indicates up swipe.
         }
     }
     console.log(this.swipedir);
@@ -294,6 +295,7 @@ export class MyName {
     if (this.swipedir == 'none') {
       console.log("onHandleClick");
       console.log(item);
+      this.applyResizeStyle(item);
     }
   }
 
@@ -363,16 +365,46 @@ export class MyName {
     ele.setAttribute("style", "transform: rotateY(" + this.currentDeg + "deg)");
   }
 
+  applyResizeStyle(item: any) {
+    
+    console.log(item.id);
+    let ele = this.myNameEl.querySelector('.carousel');
+    console.log(ele.childNodes[0]);
+
+    /*
+    ele.setAttribute("style", "animation-name: resize");
+    ele.setAttribute("style", "animation-duration: 1s");
+    ele.setAttribute("style", "animation-timing-function: ease-in-out");
+    ele.setAttribute("style", "animation-iteration-count: 1");
+
+    ele.setAttribute("style", "-webkit-animation-name: resize");
+    ele.setAttribute("style", "-webkit-animation-duration: 1s");
+    ele.setAttribute("style", "-webkit-animation-timing-function: ease-in-out");
+    ele.setAttribute("style", "-webkit-animation-iteration-count: 1");
+
+    ele.setAttribute("style", "-moz-animation-name: resize");
+    ele.setAttribute("style", "-moz-animation-duration: 1s");
+    ele.setAttribute("style", "-moz-animation-timing-function: ease-in-out");
+    ele.setAttribute("style", "-moz-animation-iteration-count: 1");
+
+    ele.setAttribute("style", "-o-animation-name: resize");
+    ele.setAttribute("style", "-o-animation-duration: 1s");
+    ele.setAttribute("style", "-o-animation-timing-function: ease-in-out");
+    ele.setAttribute("style", "-o-animation-iteration-count: 1");
+    */
+  }
+
   render() {
-    const items = this.items.map((item) => {
+    const items = this.items.map((item, index) => {
       //console.log(item);
-      var divStyle = {
+      let divStyle = {
         'background-color': item.color,
         'transform': 'rotateY(-'+item.currentPlacement+'deg)  translateZ('+this.tz+'px)',
         '-webkit-transform': 'rotateY('+item.currentPlacement+'deg)  translateZ('+this.tz+'px)'
       };
+      let myClass = 'carousel-slide-item slide-item' + index;
       return (
-        <div class="carousel-slide-item" style={divStyle} onClick={this.onHandleClick.bind(this, item)} onTouchStart={this.onHandleTouchStart.bind(this)}
+        <div class={myClass} style={divStyle} onClick={this.onHandleClick.bind(this, item)} onTouchStart={this.onHandleTouchStart.bind(this)}
         onTouchEnd={this.onHandleTouchEnd.bind(this, item)} onTouchMove={this.onHandleTouchMove.bind(this)}>
           <img src={item.imgUrl}/>
           <p>{item.description}</p>
