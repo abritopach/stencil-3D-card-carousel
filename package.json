@@ -17,7 +17,8 @@
   "dependencies": {
     "@ionic/core": "0.0.2-10",
     "@stencil/core": "next",
-    "@stencil/router": "latest"
+    "@stencil/router": "latest",
+    "hammerjs": "^2.0.8"
   },
   "devDependencies": {
     "@stencil/dev-server": "latest",

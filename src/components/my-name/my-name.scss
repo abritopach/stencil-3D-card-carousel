@@ -1,3 +1,14 @@
+@keyframes resize {
+  0% {
+    transform: scale(1.0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1.0);
+  }
+}
 
 my-name {
   font-family: Courier New, Courier, monospace;

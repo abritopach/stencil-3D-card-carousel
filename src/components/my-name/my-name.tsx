@@ -1,5 +1,6 @@
 import { Component, Prop, State, Element } from '@stencil/core';
 import { LoadingController } from '@ionic/core';
+//import * as Hammer from 'hammerjs';
 
 interface TouchEvent extends UIEvent {
   touches:TouchList;
@@ -236,6 +237,15 @@ export class MyName {
         }
     });
     */
+
+    /*
+    let ele = this.myNameEl.querySelector('.carousel');
+    var mc = new Hammer(ele);
+    
+    mc.on('swipleft', function(e) { 
+      console.log("swipleft fired");
+    });
+    */
   }
 
   onHandleClick(item, event: UIEvent) {
@@ -296,6 +306,12 @@ export class MyName {
       console.log("onHandleClick");
       console.log(item);
       this.applyResizeStyle(item);
+
+      /*
+      setTimeout(() => {
+        this.resetResizeStyle(item);
+      },2000);
+      */
     }
   }
 
@@ -368,31 +384,40 @@ export class MyName {
   applyResizeStyle(item: any) {
     
     console.log(item.id);
-    let ele = this.myNameEl.querySelector('.carousel');
-    console.log(ele.childNodes[0]);
+    let ele = this.myNameEl.querySelector('.carousel .slide-item' + item.id);
+    console.log(ele);
 
     /*
     ele.setAttribute("style", "animation-name: resize");
-    ele.setAttribute("style", "animation-duration: 1s");
+    ele.setAttribute("style", "animation-duration: 3s");
     ele.setAttribute("style", "animation-timing-function: ease-in-out");
     ele.setAttribute("style", "animation-iteration-count: 1");
 
     ele.setAttribute("style", "-webkit-animation-name: resize");
-    ele.setAttribute("style", "-webkit-animation-duration: 1s");
+    ele.setAttribute("style", "-webkit-animation-duration: 3s");
     ele.setAttribute("style", "-webkit-animation-timing-function: ease-in-out");
     ele.setAttribute("style", "-webkit-animation-iteration-count: 1");
 
     ele.setAttribute("style", "-moz-animation-name: resize");
-    ele.setAttribute("style", "-moz-animation-duration: 1s");
+    ele.setAttribute("style", "-moz-animation-duration: 3s");
     ele.setAttribute("style", "-moz-animation-timing-function: ease-in-out");
     ele.setAttribute("style", "-moz-animation-iteration-count: 1");
 
     ele.setAttribute("style", "-o-animation-name: resize");
-    ele.setAttribute("style", "-o-animation-duration: 1s");
+    ele.setAttribute("style", "-o-animation-duration: 3s");
     ele.setAttribute("style", "-o-animation-timing-function: ease-in-out");
     ele.setAttribute("style", "-o-animation-iteration-count: 1");
     */
+
   }
+
+  resetResizeStyle(item: any) {
+    let ele = this.myNameEl.querySelector('.carousel .slide-item' + item.id);
+    ele.setAttribute("style", 'animation-name: ""');
+    ele.setAttribute("style", '-webkit-animation-name: ""');
+    ele.setAttribute("style", '-moz-animation-name: ""');
+    ele.setAttribute("style", '-o-animation-name: ""');
+}
 
   render() {
     const items = this.items.map((item, index) => {
@@ -402,6 +427,7 @@ export class MyName {
         'transform': 'rotateY(-'+item.currentPlacement+'deg)  translateZ('+this.tz+'px)',
         '-webkit-transform': 'rotateY('+item.currentPlacement+'deg)  translateZ('+this.tz+'px)'
       };
+      index = index + 1;
       let myClass = 'carousel-slide-item slide-item' + index;
       return (
         <div class={myClass} style={divStyle} onClick={this.onHandleClick.bind(this, item)} onTouchStart={this.onHandleTouchStart.bind(this)}
