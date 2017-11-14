@@ -1,17 +1,17 @@
 import { flush, render } from '@stencil/core/testing';
-import { MyName } from './my-name';
+import { St3DCardCarousel } from './st-3D-card-carousel';
 
-describe('my-name', () => {
+describe('st-3D-card-carousel', () => {
   it('should build', () => {
-    expect(new MyName()).toBeTruthy();
+    expect(new St3DCardCarousel()).toBeTruthy();
   });
 
   describe('rendering', () => {
     let element;
     beforeEach(async () => {
       element = await render({
-        components: [MyName],
-        html: '<my-name></my-name>'
+        components: [St3DCardCarousel],
+        html: '<st-3D-card-carousel></st-3D-card-carousel>'
       });
     });
 

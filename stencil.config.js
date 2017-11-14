@@ -1,6 +1,6 @@
 exports.config = {
   bundles: [
-    { components: ['my-name'] }
+    { components: ['st-3D-card-carousel'] }
   ],
   collections: [
     { name: '@stencil/router' },

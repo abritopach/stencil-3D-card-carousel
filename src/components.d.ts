@@ -10,29 +10,29 @@ import '@ionic/core';
 
 
 import {
-  MyName as MyName
-} from './components/my-name/my-name';
+  St3DCardCarousel as St3dCardCarousel
+} from './components/st-3D-card-carousel/st-3D-card-carousel';
 
-interface HTMLMyNameElement extends MyName, HTMLElement {
+interface HTMLSt3dCardCarouselElement extends St3dCardCarousel, HTMLElement {
 }
-declare var HTMLMyNameElement: {
-  prototype: HTMLMyNameElement;
-  new (): HTMLMyNameElement;
+declare var HTMLSt3dCardCarouselElement: {
+  prototype: HTMLSt3dCardCarouselElement;
+  new (): HTMLSt3dCardCarouselElement;
 };
 declare global {
   interface HTMLElementTagNameMap {
-      "my-name": HTMLMyNameElement;
+      "st-3d-card-carousel": HTMLSt3dCardCarouselElement;
   }
   interface ElementTagNameMap {
-      "my-name": HTMLMyNameElement;
+      "st-3d-card-carousel": HTMLSt3dCardCarouselElement;
   }
   namespace JSX {
       interface IntrinsicElements {
-          "my-name": JSXElements.MyNameAttributes;
+          "st-3d-card-carousel": JSXElements.St3dCardCarouselAttributes;
       }
   }
   namespace JSXElements {
-      export interface MyNameAttributes extends HTMLAttributes {
+      export interface St3dCardCarouselAttributes extends HTMLAttributes {
           mode?: string,
           color?: string,
         

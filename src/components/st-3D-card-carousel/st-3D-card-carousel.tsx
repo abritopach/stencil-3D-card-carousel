@@ -9,10 +9,10 @@ interface TouchEvent extends UIEvent {
 };
 
 @Component({
-  tag: 'my-name',
-  styleUrl: 'my-name.scss'
+  tag: 'st-3D-card-carousel',
+  styleUrl: 'st-3D-card-carousel.scss'
 })
-export class MyName {
+export class St3DCardCarousel {
 
   @Prop() first: string;
 
