@@ -36,8 +36,39 @@ declare global {
           mode?: string,
           color?: string,
         
-          first?: string,
-          last?: string
+          slides?: any
+      }
+  }
+}
+
+
+import {
+  TestCarousel as TestCarousel
+} from './components/test-carousel/test-carousel';
+
+interface HTMLTestCarouselElement extends TestCarousel, HTMLElement {
+}
+declare var HTMLTestCarouselElement: {
+  prototype: HTMLTestCarouselElement;
+  new (): HTMLTestCarouselElement;
+};
+declare global {
+  interface HTMLElementTagNameMap {
+      "test-carousel": HTMLTestCarouselElement;
+  }
+  interface ElementTagNameMap {
+      "test-carousel": HTMLTestCarouselElement;
+  }
+  namespace JSX {
+      interface IntrinsicElements {
+          "test-carousel": JSXElements.TestCarouselAttributes;
+      }
+  }
+  namespace JSXElements {
+      export interface TestCarouselAttributes extends HTMLAttributes {
+          mode?: string,
+          color?: string,
+        
       }
   }
 }
