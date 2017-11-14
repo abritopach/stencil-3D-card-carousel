@@ -107,7 +107,7 @@ export class MyName {
                     imgUrl: 'http://www.urbanhabitat.com.ar/img/team/14.jpg',
                     backgroundImgUrl: 'https://i.ytimg.com/vi/GpTrOahC6jI/maxresdefault.jpg',
                     currentPlacement: 300
-                },
+                }/*,
                 {
                     id: 7,
                     title: 'User 7',
@@ -199,6 +199,7 @@ export class MyName {
                       imgUrl: 'http://www.urbanhabitat.com.ar/img/team/14.jpg',
                       backgroundImgUrl: 'http://oxygennacdn1.oxygenna.com/wp-content/uploads/2017/01/header-image-6.jpg'
                   },
+                  */
 
             ];
 
@@ -249,16 +250,19 @@ export class MyName {
   }
 
   onHandleClick(item, event: UIEvent) {
-    console.log("onHandleClick");
+    //console.log("onHandleClick");
     console.log(item);
-    this.applyResizeStyle(item);
+    
+    setTimeout(() => {
+      this.resetResizeStyle(item);
+    },2000);
     //this.currentDeg = this.currentDeg + 60;
     //console.log(this.myNameEl.querySelector('.carousel'));
     //this.applyStyle();
   }
 
   onHandleTouchStart(event: TouchEvent) {
-    console.log("onHandleTouchStart");
+    //console.log("onHandleTouchStart");
     let touchobj = event.changedTouches[0];
     this.swipedir = 'none';
     this.distX = 0;
@@ -270,7 +274,7 @@ export class MyName {
   }
 
   onHandleTouchEnd(item, event: TouchEvent) {
-    console.log("onHandleTouchEnd");
+    //console.log("onHandleTouchEnd");
     let touchobj = event.changedTouches[0];
     this.distX = touchobj.pageX - this.startX; // Get horizontal dist traveled by finger while in contact with surface.
     this.distY = touchobj.pageY - this.startY; // Get vertical dist traveled by finger while in contact with surface.
@@ -283,13 +287,13 @@ export class MyName {
             this.swipedir = (this.distY < 0)? 'up' : 'down'; // If dist traveled is negative, it indicates up swipe.
         }
     }
-    console.log(this.swipedir);
+    //console.log(this.swipedir);
     this.handleSwipe(item);
     event.preventDefault();
   }
 
   onHandleTouchMove(event: UIEvent) {
-    console.log("onHandleTouchMove");
+    //console.log("onHandleTouchMove");
     event.preventDefault(); // prevent scrolling when inside DIV
   }
 
@@ -303,15 +307,13 @@ export class MyName {
       this.applyStyle();
     }
     if (this.swipedir == 'none') {
-      console.log("onHandleClick");
+      //console.log("onHandleClick");
       console.log(item);
       this.applyResizeStyle(item);
 
-      /*
       setTimeout(() => {
         this.resetResizeStyle(item);
       },2000);
-      */
     }
   }
 
@@ -382,41 +384,13 @@ export class MyName {
   }
 
   applyResizeStyle(item: any) {
-    
-    console.log(item.id);
-    let ele = this.myNameEl.querySelector('.carousel .slide-item' + item.id);
-    console.log(ele);
-
-    /*
-    ele.setAttribute("style", "animation-name: resize");
-    ele.setAttribute("style", "animation-duration: 3s");
-    ele.setAttribute("style", "animation-timing-function: ease-in-out");
-    ele.setAttribute("style", "animation-iteration-count: 1");
-
-    ele.setAttribute("style", "-webkit-animation-name: resize");
-    ele.setAttribute("style", "-webkit-animation-duration: 3s");
-    ele.setAttribute("style", "-webkit-animation-timing-function: ease-in-out");
-    ele.setAttribute("style", "-webkit-animation-iteration-count: 1");
-
-    ele.setAttribute("style", "-moz-animation-name: resize");
-    ele.setAttribute("style", "-moz-animation-duration: 3s");
-    ele.setAttribute("style", "-moz-animation-timing-function: ease-in-out");
-    ele.setAttribute("style", "-moz-animation-iteration-count: 1");
-
-    ele.setAttribute("style", "-o-animation-name: resize");
-    ele.setAttribute("style", "-o-animation-duration: 3s");
-    ele.setAttribute("style", "-o-animation-timing-function: ease-in-out");
-    ele.setAttribute("style", "-o-animation-iteration-count: 1");
-    */
-
+    let ele = this.myNameEl.querySelector('.slide-item' + item.id);
+    ele.classList.add("slide-item-animation");
   }
 
   resetResizeStyle(item: any) {
-    let ele = this.myNameEl.querySelector('.carousel .slide-item' + item.id);
-    ele.setAttribute("style", 'animation-name: ""');
-    ele.setAttribute("style", '-webkit-animation-name: ""');
-    ele.setAttribute("style", '-moz-animation-name: ""');
-    ele.setAttribute("style", '-o-animation-name: ""');
+    let ele = this.myNameEl.querySelector('.slide-item' + item.id);
+    ele.classList.remove("slide-item-animation");
 }
 
   render() {

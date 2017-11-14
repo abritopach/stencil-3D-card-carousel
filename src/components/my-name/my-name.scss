@@ -48,6 +48,25 @@ my-name {
   border-radius: 10px;
 }
 
+.slide-item-animation {
+  animation-name: resize;
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  -webkit-animation-name: resize;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: 1;
+  -moz-animation-name: resize;
+  -moz-animation-duration: 3s;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-iteration-count: 1;
+  -o-animation-name: resize;
+  -o-animation-duration: 3s;
+  -o-animation-timing-function: ease-in-out;
+  -o-animation-iteration-count: 1;
+}
+
 @media screen and (max-width: 25em) {
   
       .carousel-container {
