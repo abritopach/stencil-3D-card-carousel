@@ -15,9 +15,9 @@ interface TouchEvent extends UIEvent {
 export class St3DCardCarousel {
 
   @Prop() slides: any;
-  @State() items: any = [];
-  @State() tz: number = 250;
-  @State() currentDeg: number = 0;
+  items: any = [];
+  private readonly tz: number = 250;
+  currentDeg: number = 0;
 
   @Element() myNameEl: HTMLElement;
 
@@ -55,7 +55,7 @@ export class St3DCardCarousel {
   }
 
   componentDidLoad() {
-    console.log('The component has been rendered');
+    console.log('componentDidLoad');
 
     let ele = this.myNameEl.querySelector('.carousel');
     let mc = new Hammer(ele);
@@ -78,18 +78,23 @@ export class St3DCardCarousel {
    * Called multiple times throughout the life of the component as it updates.
    */
   componentWillUpdate() {
-    console.log('The component will update');
-    this.items = this.slides;    
+    console.log('ComponentWillUpdate');
+    this.items = this.slides;  
+    let degree = 0;
+    this.items.map((item) => {
+      item["currentPlacement"] = degree;
+      degree = degree + 60;
+    });  
   }
 
-  onHandleClick(item, event: UIEvent) {
+  onHandleClick(item) {
     //console.log("onHandleClick");
     console.log(item);
     this.applyResizeStyle(item);
-    
     setTimeout(() => {
       this.resetResizeStyle(item);
     },2000);
+    
   }
 
   // Detect swipe event.
@@ -169,20 +174,20 @@ export class St3DCardCarousel {
 }
 
   render() {
-    let items = this.items.map((item, index) => {
+    const items = this.items.map((item, index) => {
       let divStyle = {
         'background-color': item.color,
         'transform': 'rotateY(-'+item.currentPlacement+'deg)  translateZ('+this.tz+'px)',
         '-webkit-transform': 'rotateY('+item.currentPlacement+'deg)  translateZ('+this.tz+'px)'
       };
-      index = index + 1;
-      let myClass = 'carousel-slide-item slide-item' + index;
+      let myClass = 'carousel-slide-item slide-item' + item.id;
       //<div class={myClass} style={divStyle} onClick={this.onHandleClick.bind(this, item)} onTouchStart={this.onHandleTouchStart.bind(this)}
       //  onTouchEnd={this.onHandleTouchEnd.bind(this, item)} onTouchMove={this.onHandleTouchMove.bind(this)}>
       return (
-        <div class={myClass} style={divStyle} onClick={this.onHandleClick.bind(this, item)}>
-          <img src={item.imgUrl}/>
-          <p>{item.description}</p>
+        <div class={myClass} style={divStyle} onClick={ () => this.onHandleClick(this.items[index])}>
+        <img src={item.imgUrl}/>
+        <p><b>{item.title}</b></p>
+        <p>{item.description}</p>
         </div>
       );
     });

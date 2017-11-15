@@ -9,7 +9,7 @@ export class TestCarousel {
   private start: number = 0;
   private end: number = 5;
   private items: any;
-  slides: any;
+  @State() slides: any;
 
   componentWillLoad() {
     this.items = [
@@ -84,7 +84,7 @@ export class TestCarousel {
           title: 'User 7',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
           country: 'Spain',
-          color: '#1abc9c',
+          color: '#81C784',
           isSelected: false,
           imgUrl: 'http://www.urbanhabitat.com.ar/img/team/14.jpg',
           backgroundImgUrl: 'http://www.templatemonsterblog.es/wp-content/uploads/2016/04/1-9-2.jpg',
@@ -95,7 +95,7 @@ export class TestCarousel {
           title: 'User 8',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
           country: 'Spain',
-          color: '#e67e22',
+          color: '#CDDC39',
           isSelected: false,
           imgUrl: 'http://www.urbanhabitat.com.ar/img/team/14.jpg',
           backgroundImgUrl: 'https://cms-assets.tutsplus.com/uploads/users/41/posts/25951/image/material-design-3.jpg',
@@ -105,7 +105,7 @@ export class TestCarousel {
           title: 'User 9',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
           country: 'Spain',
-          color: '#e74c3c',
+          color: '#FF9800',
           isSelected: false,
           imgUrl: 'http://www.urbanhabitat.com.ar/img/team/14.jpg',
           backgroundImgUrl: 'https://cms-assets.tutsplus.com/uploads/users/41/posts/25951/image/material-design-background-1.jpg'
@@ -115,7 +115,7 @@ export class TestCarousel {
           title: 'User 10',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
           country: 'Spain',
-          color: '#2c3e50',
+          color: '#795548',
           isSelected: false,
           imgUrl: 'http://www.urbanhabitat.com.ar/img/team/14.jpg',
           backgroundImgUrl: 'http://www.vactualpapers.com/web/wallpapers/1-pattern-35-color-schemes-material-design-wallpaper-series-image11/2560x1440.jpg'
@@ -125,7 +125,7 @@ export class TestCarousel {
           title: 'User 11',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
           country: 'Spain',
-          color: '#2980b9',
+          color: '#90A4AE',
           isSelected: false,
           imgUrl: 'http://www.urbanhabitat.com.ar/img/team/14.jpg',
           backgroundImgUrl: 'https://www.smashingmagazine.com/wp-content/uploads/2015/07/Ultimate-Material-Lollipop-Collection1.png'
@@ -135,7 +135,7 @@ export class TestCarousel {
           title: 'User 12',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
           country: 'Spain',
-          color: '#9b59b6',
+          color: '#D50000',
           isSelected: false,
           imgUrl: 'http://www.urbanhabitat.com.ar/img/team/14.jpg',
           backgroundImgUrl: 'https://s-media-cache-ak0.pinimg.com/736x/c2/bd/3a/c2bd3ae483f9617e6f71bc2a74b60b5a.jpg'
@@ -186,7 +186,11 @@ export class TestCarousel {
     }
     this.slides = [];
     for (var i = this.start; i <= this.end; i++) {
-        this.slides.push(this.items[i]);
+        //this.slides.push(this.items[i]);
+        this.slides = [
+            ...this.slides,
+            this.items[i]
+          ]
     }
 
     this.start = this.end + 1;
@@ -195,15 +199,16 @@ export class TestCarousel {
   }
 
   handleClick() {
-    console.log("handleClick");
     this.getCurrentSlides();
-    console.log(this.slides);
+    //console.log(this.slides);
   }
 
   render() {
-    return ([
-      <button onClick={this.handleClick.bind(this)}>Load more</button>,
-      <st-3D-card-carousel slides={this.slides}></st-3D-card-carousel>
-    ]);
+    return (
+      <div>
+        <button onClick={this.handleClick.bind(this)}>Load more</button>
+        <st-3D-card-carousel slides={this.slides}></st-3D-card-carousel>
+      </div>
+    );
   }
 }
