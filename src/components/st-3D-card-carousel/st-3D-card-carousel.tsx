@@ -1,12 +1,6 @@
-import { Component, Prop, State, Element } from '@stencil/core';
+import { Component, Prop, Element, Event, EventEmitter, Listen } from '@stencil/core';
 import { LoadingController } from '@ionic/core';
 import * as Hammer from 'hammerjs';
-
-interface TouchEvent extends UIEvent {
-  touches:TouchList;
-  targetTouches:TouchList;
-  changedTouches:TouchList;
-};
 
 @Component({
   tag: 'st-3D-card-carousel',
@@ -22,17 +16,12 @@ export class St3DCardCarousel {
   @Element() myNameEl: HTMLElement;
 
   @Prop({ connect: 'ion-loading-controller' }) loadingCtrl: LoadingController;
+  @Event() selectedItem: EventEmitter;
 
-  swipedir: string;
-  startX: number;
-  startY: number;
-  distX: number;
-  distY: number;
-  threshold: number = 150; // Required min distance traveled to be considered swipe.
-  restraint: number = 100; // Maximum distance allowed at the same time in perpendicular direction.
-  allowedTime: number = 300; // Maximum time allowed to travel that distance.
-  elapsedTime: any;
-  startTime: any;
+  @Listen('selectedItem')
+  selectedItemHandler(event: CustomEvent) {
+    console.log(event.detail);
+  }
 
   componentWillLoad() {
 
@@ -89,70 +78,13 @@ export class St3DCardCarousel {
 
   onHandleClick(item) {
     //console.log("onHandleClick");
-    console.log(item);
+    //console.log(item);
+    this.selectedItem.emit(item);
     this.applyResizeStyle(item);
     setTimeout(() => {
       this.resetResizeStyle(item);
     },2000);
     
-  }
-
-  // Detect swipe event.
-  // Source: http://www.javascriptkit.com/javatutors/touchevents2.shtml
-  onHandleTouchStart(event: TouchEvent) {
-    //console.log("onHandleTouchStart");
-    let touchobj = event.changedTouches[0];
-    this.swipedir = 'none';
-    this.distX = 0;
-    this.distY = 0;
-    this.startX = touchobj.pageX;
-    this.startY = touchobj.pageY;
-    this.startTime = new Date().getTime(); // Record time when finger first makes contact with surface.
-    event.preventDefault();
-  }
-
-  onHandleTouchEnd(item, event: TouchEvent) {
-    //console.log("onHandleTouchEnd");
-    let touchobj = event.changedTouches[0];
-    this.distX = touchobj.pageX - this.startX; // Get horizontal dist traveled by finger while in contact with surface.
-    this.distY = touchobj.pageY - this.startY; // Get vertical dist traveled by finger while in contact with surface.
-    this.elapsedTime = new Date().getTime() - this.startTime; // Get time elapsed.
-    if (this.elapsedTime <= this.allowedTime) { // First condition for awipe met.
-        if (Math.abs(this.distX) >= this.threshold && Math.abs(this.distY) <= this.restraint){ // 2nd condition for horizontal swipe met.
-            this.swipedir = (this.distX < 0)? 'left' : 'right'; // If dist traveled is negative, it indicates left swipe.
-        }
-        else if (Math.abs(this.distY) >= this.threshold && Math.abs(this.distX) <= this.restraint){ // 2nd condition for vertical swipe met.
-            this.swipedir = (this.distY < 0)? 'up' : 'down'; // If dist traveled is negative, it indicates up swipe.
-        }
-    }
-    //console.log(this.swipedir);
-    this.handleSwipe(item);
-    event.preventDefault();
-  }
-
-  onHandleTouchMove(event: UIEvent) {
-    //console.log("onHandleTouchMove");
-    event.preventDefault(); // prevent scrolling when inside DIV
-  }
-
-  handleSwipe(item) {
-    if (this.swipedir =='left') {
-      this.currentDeg = this.currentDeg - 60;
-      this.applyStyle();
-    }
-    if (this.swipedir == 'right') {
-      this.currentDeg = this.currentDeg + 60;
-      this.applyStyle();
-    }
-    if (this.swipedir == 'none') {
-      //console.log("onHandleClick");
-      console.log(item);
-      this.applyResizeStyle(item);
-
-      setTimeout(() => {
-        this.resetResizeStyle(item);
-      },2000);
-    }
   }
 
   applyStyle() {
@@ -181,8 +113,6 @@ export class St3DCardCarousel {
         '-webkit-transform': 'rotateY('+item.currentPlacement+'deg)  translateZ('+this.tz+'px)'
       };
       let myClass = 'carousel-slide-item slide-item' + item.id;
-      //<div class={myClass} style={divStyle} onClick={this.onHandleClick.bind(this, item)} onTouchStart={this.onHandleTouchStart.bind(this)}
-      //  onTouchEnd={this.onHandleTouchEnd.bind(this, item)} onTouchMove={this.onHandleTouchMove.bind(this)}>
       return (
         <div class={myClass} style={divStyle} onClick={ () => this.onHandleClick(this.items[index])}>
         <img src={item.imgUrl}/>
@@ -196,27 +126,12 @@ export class St3DCardCarousel {
         </div>
       );
     });
-    return ([
+    return (
       <div class="carousel-container">
         <div class="carousel">
             {items}
         </div>
-      </div>,
-      {/*
-      <ion-card>
-        <ion-item>
-          <ion-avatar item-start>
-            <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png"/>
-          </ion-avatar>
-          <h2>Marty McFly</h2>
-        </ion-item>
-        <img src="https://images.template.net/wp-content/uploads/2016/02/05070714/Landscape-Nature-Sunset-Trees-HD-Free-Background.jpg"/>
-
-        <ion-card-content>
-          <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
-        </ion-card-content>
-      </ion-card>,
-      */}
-    ]);
+      </div>
+      );
   }
 }
