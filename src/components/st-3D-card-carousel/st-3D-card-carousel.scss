@@ -1,29 +1,33 @@
-@keyframes resize {
-  0% {
-    transform: scale(1.0);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1.0);
-  }
-}
-
 st-3D-card-carousel {
-  font-family: Courier New, Courier, monospace;
-  font-weight: bold;
-
-  p {
-    margin: 0 0 5px;
+  //font-family: Courier New, Courier, monospace;
+  //font-weight: bold;
+  h2 {
+    margin-top: 5px;
+    color: white;
+    font-size: 25px;
   }
-}
+
+  i {
+    color: #3E2723;
+  }
+
+  @keyframes resize {
+    0% {
+      transform: scale(1.0);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1.0);
+    }
+  }
 
 .carousel-container {
   padding: 70px 0;
   margin: 0 auto;
   width: 200px;
-  height: 500px;
+  height: 550px;
   position: relative;
   perspective: 1000px;
 }
@@ -39,17 +43,24 @@ st-3D-card-carousel {
   height:200px;
   margin-top: 10px;
 }
+
 .carousel-slide-item {
   display: block;
   position: absolute;
   background:#000;
   width: 200px;
-  height: 300px;
+  height: auto;
   font-size: large;
   text-align: center;
   color: #FFF;
   opacity: 0.95;
   border-radius: 10px;
+  //border: solid 2px red;
+}
+
+.carousel-slide-item div {
+  width: 200px;
+  height: 20px;
 }
 
 .slide-item-animation {
@@ -71,13 +82,23 @@ st-3D-card-carousel {
   -o-animation-iteration-count: 1;
 }
 
+.left {
+  width: 100px!important;
+  float: left;
+}
+
+.right {
+  width: 100px!important;
+  float: right;
+}
+
 @media screen and (max-width: 25em) {
   
       .carousel-container {
         padding: 70px 0;
         margin: 0 auto;
         width: 250px;
-        height: 500px;
+        height: 550px;
         position: relative;
         perspective: 1000px;
       }
@@ -100,6 +121,15 @@ st-3D-card-carousel {
         color: #FFF;
         opacity: 0.95;
         border-radius: 10px;
+        //border: solid 2px red;
+      }
+
+      .carousel-slide-item div {
+        width: 200px;
+        height: 20px;
+        font-size: 15px;
       }
   
   }
+
+}

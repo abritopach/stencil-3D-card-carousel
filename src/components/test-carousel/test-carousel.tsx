@@ -206,8 +206,8 @@ export class TestCarousel {
   render() {
     return (
       <div>
-        <button onClick={this.handleClick.bind(this)}>Load more</button>
         <st-3D-card-carousel slides={this.slides}></st-3D-card-carousel>
+        <button onClick={this.handleClick.bind(this)}>Load more</button>
       </div>
     );
   }

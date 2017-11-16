@@ -186,8 +186,13 @@ export class St3DCardCarousel {
       return (
         <div class={myClass} style={divStyle} onClick={ () => this.onHandleClick(this.items[index])}>
         <img src={item.imgUrl}/>
-        <p><b>{item.title}</b></p>
+        <h2>{item.title}</h2>
+        <p><i class="fa fa-flag"></i> {item.country}</p>
         <p>{item.description}</p>
+        <div>
+          <div class="left">12 <i class="fa fa-users"></i></div>
+          <div class="right">4 <i class="fa fa-comments"></i></div>
+        </div>
         </div>
       );
     });
