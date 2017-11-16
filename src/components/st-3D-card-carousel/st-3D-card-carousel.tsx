@@ -1,5 +1,4 @@
 import { Component, Prop, Element, Event, EventEmitter, Listen } from '@stencil/core';
-import { LoadingController } from '@ionic/core';
 import * as Hammer from 'hammerjs';
 
 @Component({
@@ -8,14 +7,13 @@ import * as Hammer from 'hammerjs';
 })
 export class St3DCardCarousel {
 
-  @Prop() slides: any;
+  @Prop() slides: any = [];
   items: any = [];
   private readonly tz: number = 250;
   currentDeg: number = 0;
 
   @Element() myNameEl: HTMLElement;
 
-  @Prop({ connect: 'ion-loading-controller' }) loadingCtrl: LoadingController;
   @Event() selectedItem: EventEmitter;
 
   @Listen('selectedItem')
@@ -24,42 +22,38 @@ export class St3DCardCarousel {
   }
 
   componentWillLoad() {
-
     console.log("componentWillLoad");
-
-    //console.log(this.slides);
+    console.log(this.slides);
     this.items = this.slides;
-
-    this.loadingCtrl.create({ content: 'Load 3D Card Carousel...' }).then(loading => {
-      loading.present().then(() => {
-        let degree = 0;
-        this.items.map((item) => {
-          item["currentPlacement"] = degree;
-          degree = degree + 60;
-        });
-
-        loading.dismiss();
-        })
-      });
+    let degree = 0;
+    this.items.map((item) => {
+      item["currentPlacement"] = degree;
+      degree = degree + 60;
+    });
   }
 
   componentDidLoad() {
     console.log('componentDidLoad');
 
     let ele = this.myNameEl.querySelector('.carousel');
-    let mc = new Hammer(ele);
-    mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-    
-    mc.on("swipeleft swiperight", (function(ev) {
-        if (ev.type == "swipeleft") {
-          this.currentDeg = this.currentDeg - 60;
-          this.applyStyle();
-        }
-        if (ev.type == "swiperight") {
-          this.currentDeg = this.currentDeg + 60;
-          this.applyStyle();
-        }
-    }).bind(this));
+
+    if (ele != null) {
+      let mc = new Hammer(ele);
+      mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+      
+      mc.on("swipeleft swiperight", (function(ev) {
+          if (ev.type == "swipeleft") {
+            console.log("swipeleft");
+            this.currentDeg = this.currentDeg - 60;
+            this.applyStyle();
+          }
+          if (ev.type == "swiperight") {
+            console.log("swiperight");
+            this.currentDeg = this.currentDeg + 60;
+            this.applyStyle();
+          }
+      }).bind(this));
+    }
   }
 
   /**
@@ -68,12 +62,14 @@ export class St3DCardCarousel {
    */
   componentWillUpdate() {
     console.log('ComponentWillUpdate');
-    this.items = this.slides;  
-    let degree = 0;
-    this.items.map((item) => {
-      item["currentPlacement"] = degree;
-      degree = degree + 60;
-    });  
+    if ((this.slides != null) && (this.slides.length != 0)) {
+      this.items = this.slides;  
+      let degree = 0;
+      this.items.map((item) => {
+        item["currentPlacement"] = degree;
+        degree = degree + 60;
+      });  
+    }
   }
 
   onHandleClick(item) {

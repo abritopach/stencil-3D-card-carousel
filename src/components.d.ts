@@ -6,38 +6,34 @@
 
 import '@stencil/router';
 
-import '@ionic/core';
-
 
 import {
   St3DCardCarousel as St3dCardCarousel
 } from './components/st-3D-card-carousel/st-3D-card-carousel';
 
-interface HTMLSt3dCardCarouselElement extends St3dCardCarousel, HTMLElement {
-}
-declare var HTMLSt3dCardCarouselElement: {
-  prototype: HTMLSt3dCardCarouselElement;
-  new (): HTMLSt3dCardCarouselElement;
-};
 declare global {
+  interface HTMLSt3dCardCarouselElement extends St3dCardCarousel, HTMLElement {
+  }
+  var HTMLSt3dCardCarouselElement: {
+    prototype: HTMLSt3dCardCarouselElement;
+    new (): HTMLSt3dCardCarouselElement;
+  };
   interface HTMLElementTagNameMap {
-      "st-3d-card-carousel": HTMLSt3dCardCarouselElement;
+    "st-3d-card-carousel": HTMLSt3dCardCarouselElement;
   }
   interface ElementTagNameMap {
-      "st-3d-card-carousel": HTMLSt3dCardCarouselElement;
+    "st-3d-card-carousel": HTMLSt3dCardCarouselElement;
   }
   namespace JSX {
-      interface IntrinsicElements {
-          "st-3d-card-carousel": JSXElements.St3dCardCarouselAttributes;
-      }
+    interface IntrinsicElements {
+      "st-3d-card-carousel": JSXElements.St3dCardCarouselAttributes;
+    }
   }
   namespace JSXElements {
-      export interface St3dCardCarouselAttributes extends HTMLAttributes {
-          mode?: string,
-          color?: string,
-        
-          slides?: any
-      }
+    export interface St3dCardCarouselAttributes extends HTMLAttributes {
+      
+        slides?: any
+    }
   }
 }
 
@@ -46,30 +42,28 @@ import {
   TestCarousel as TestCarousel
 } from './components/test-carousel/test-carousel';
 
-interface HTMLTestCarouselElement extends TestCarousel, HTMLElement {
-}
-declare var HTMLTestCarouselElement: {
-  prototype: HTMLTestCarouselElement;
-  new (): HTMLTestCarouselElement;
-};
 declare global {
+  interface HTMLTestCarouselElement extends TestCarousel, HTMLElement {
+  }
+  var HTMLTestCarouselElement: {
+    prototype: HTMLTestCarouselElement;
+    new (): HTMLTestCarouselElement;
+  };
   interface HTMLElementTagNameMap {
-      "test-carousel": HTMLTestCarouselElement;
+    "test-carousel": HTMLTestCarouselElement;
   }
   interface ElementTagNameMap {
-      "test-carousel": HTMLTestCarouselElement;
+    "test-carousel": HTMLTestCarouselElement;
   }
   namespace JSX {
-      interface IntrinsicElements {
-          "test-carousel": JSXElements.TestCarouselAttributes;
-      }
+    interface IntrinsicElements {
+      "test-carousel": JSXElements.TestCarouselAttributes;
+    }
   }
   namespace JSXElements {
-      export interface TestCarouselAttributes extends HTMLAttributes {
-          mode?: string,
-          color?: string,
-        
-      }
+    export interface TestCarouselAttributes extends HTMLAttributes {
+      
+    }
   }
 }
 

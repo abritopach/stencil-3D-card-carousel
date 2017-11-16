@@ -1,6 +1,7 @@
 st-3D-card-carousel {
   //font-family: Courier New, Courier, monospace;
   //font-weight: bold;
+
   h2 {
     margin-top: 5px;
     color: white;
@@ -25,11 +26,12 @@ st-3D-card-carousel {
 
 .carousel-container {
   padding: 70px 0;
-  margin: 0 auto;
+  margin: 50px auto;
   width: 200px;
   height: 550px;
   position: relative;
   perspective: 1000px;
+  touch-action: pan-y;
 }
 .carousel {
   height: 100%;
@@ -96,7 +98,7 @@ st-3D-card-carousel {
   
       .carousel-container {
         padding: 70px 0;
-        margin: 0 auto;
+        margin: 50px auto;
         width: 250px;
         height: 550px;
         position: relative;
@@ -108,6 +110,12 @@ st-3D-card-carousel {
         position: absolute;
         transform-style: preserve-3d;
         transition: transform 1s;
+      }
+
+      .carousel img {
+        width:200px;
+        height:200px;
+        margin-top: 10px;
       }
      
       .carousel-slide-item {

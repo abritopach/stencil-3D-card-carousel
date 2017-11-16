@@ -3,8 +3,7 @@ exports.config = {
     { components: ['test-carousel', 'st-3D-card-carousel'] }
   ],
   collections: [
-    { name: '@stencil/router' },
-    { name: '@ionic/core' }
+    { name: '@stencil/router' }
   ]
 };
 
