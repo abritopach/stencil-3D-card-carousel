@@ -79,7 +79,7 @@ export class St3DCardCarousel {
     this.applyResizeStyle(item);
     setTimeout(() => {
       this.resetResizeStyle(item);
-    },2000);
+    },3000);
     
   }
 
