@@ -17,84 +17,111 @@ export class TestCarousel {
           id: 1,
           title: 'User 1',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
-          country: 'Spain',
+          subtitle: {
+            text: 'Spain',
+            icon: "fa fa-flag"
+          },
           color: '#1abc9c',
           isSelected: false,
           imgUrl: 'https://www.resa.es/wp-content/uploads/2015/07/icon-user-default.png',
           backgroundImgUrl: 'http://oxygennacdn3.oxygenna.com/wp-content/uploads/2015/11/18.jpg',
-          currentPlacement: 0
+          footer: {
+            icons: {
+                leftIcon: "fa fa-users",
+                rightIcon: "fa fa-comments"
+            },
+            values: {
+                leftValue:12,
+                rightValue: 4 
+            }
+          }
       },
       {
           id: 2,
           title: 'User 2',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
-          country: 'Spain',
+          subtitle: {
+            text: 'Spain',
+            icon: "fa fa-flag"
+          },
           color: '#e67e22',
           isSelected: false,
           imgUrl: 'https://www.resa.es/wp-content/uploads/2015/07/icon-user-default.png',
-          backgroundImgUrl: 'https://s-media-cache-ak0.pinimg.com/originals/d2/7b/4f/d27b4fa995194a0c77b8871a326a7c0b.jpg',
-          currentPlacement: 60
+          backgroundImgUrl: 'https://s-media-cache-ak0.pinimg.com/originals/d2/7b/4f/d27b4fa995194a0c77b8871a326a7c0b.jpg'
       },
       {
           id: 3,
           title: 'User 3',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
-          country: 'Spain',
+          subtitle: {
+            text: 'Spain',
+            icon: "fa fa-flag"
+          },
           color: '#e74c3c',
           isSelected: false,
           imgUrl: 'https://www.resa.es/wp-content/uploads/2015/07/icon-user-default.png',
-          backgroundImgUrl: 'https://i.imgur.com/AMf9X7E.jpg',
-          currentPlacement: 120
+          backgroundImgUrl: 'https://i.imgur.com/AMf9X7E.jpg'
       },
       {
           id: 4,
           title: 'User 4',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
-          country: 'Spain',
+          subtitle: {
+            text: 'Spain',
+            icon: "fa fa-flag"
+          },
           color: '#2c3e50',
           isSelected: false,
           imgUrl: 'https://www.resa.es/wp-content/uploads/2015/07/icon-user-default.png',
-          backgroundImgUrl: 'http://oxygennacdn2.oxygenna.com/wp-content/uploads/2015/06/small.jpg',
-          currentPlacement: 180
+          backgroundImgUrl: 'http://oxygennacdn2.oxygenna.com/wp-content/uploads/2015/06/small.jpg'
       },
       {
           id: 5,
           title: 'User 5',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
-          country: 'Spain',
+          subtitle: {
+            text: 'Spain',
+            icon: "fa fa-flag"
+          },
           color: '#2980b9',
           isSelected: false,
           imgUrl: 'https://www.resa.es/wp-content/uploads/2015/07/icon-user-default.png',
-          backgroundImgUrl: 'https://newevolutiondesigns.com/images/freebies/google-material-design-wallpaper-1.jpg',
-          currentPlacement: 240
+          backgroundImgUrl: 'https://newevolutiondesigns.com/images/freebies/google-material-design-wallpaper-1.jpg'
       },
       {
           id: 6,
           title: 'User 6',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
-          country: 'Spain',
+          subtitle: {
+            text: 'Spain',
+            icon: "fa fa-flag"
+          },
           color: '#9b59b6',
           isSelected: false,
           imgUrl: 'https://www.resa.es/wp-content/uploads/2015/07/icon-user-default.png',
-          backgroundImgUrl: 'https://i.ytimg.com/vi/GpTrOahC6jI/maxresdefault.jpg',
-          currentPlacement: 300
+          backgroundImgUrl: 'https://i.ytimg.com/vi/GpTrOahC6jI/maxresdefault.jpg'
       },
       {
           id: 7,
           title: 'User 7',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
-          country: 'Spain',
+          subtitle: {
+            text: 'Spain',
+            icon: "fa fa-flag"
+          },
           color: '#81C784',
           isSelected: false,
           imgUrl: 'https://www.resa.es/wp-content/uploads/2015/07/icon-user-default.png',
-          backgroundImgUrl: 'http://www.templatemonsterblog.es/wp-content/uploads/2016/04/1-9-2.jpg',
-          currentPlacement: 360
+          backgroundImgUrl: 'http://www.templatemonsterblog.es/wp-content/uploads/2016/04/1-9-2.jpg'
       },
       {
           id: 8,
           title: 'User 8',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
-          country: 'Spain',
+          subtitle: {
+            text: 'Spain',
+            icon: "fa fa-flag"
+          },
           color: '#CDDC39',
           isSelected: false,
           imgUrl: 'https://www.resa.es/wp-content/uploads/2015/07/icon-user-default.png',
@@ -104,7 +131,10 @@ export class TestCarousel {
           id: 9,
           title: 'User 9',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
-          country: 'Spain',
+          subtitle: {
+            text: 'Spain',
+            icon: "fa fa-flag"
+          },
           color: '#FF9800',
           isSelected: false,
           imgUrl: 'https://www.resa.es/wp-content/uploads/2015/07/icon-user-default.png',
@@ -114,7 +144,10 @@ export class TestCarousel {
           id: 10,
           title: 'User 10',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
-          country: 'Spain',
+          subtitle: {
+            text: 'Spain',
+            icon: "fa fa-flag"
+          },
           color: '#795548',
           isSelected: false,
           imgUrl: 'https://www.resa.es/wp-content/uploads/2015/07/icon-user-default.png',
@@ -124,7 +157,10 @@ export class TestCarousel {
           id: 11,
           title: 'User 11',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
-          country: 'Spain',
+          subtitle: {
+            text: 'Spain',
+            icon: "fa fa-flag"
+          },
           color: '#90A4AE',
           isSelected: false,
           imgUrl: 'https://www.resa.es/wp-content/uploads/2015/07/icon-user-default.png',
@@ -134,7 +170,10 @@ export class TestCarousel {
           id: 12,
           title: 'User 12',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
-          country: 'Spain',
+          subtitle: {
+            text: 'Spain',
+            icon: "fa fa-flag"
+          },
           color: '#D50000',
           isSelected: false,
           imgUrl: 'https://www.resa.es/wp-content/uploads/2015/07/icon-user-default.png',
@@ -144,7 +183,10 @@ export class TestCarousel {
           id: 13,
           title: 'User 13',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
-          country: 'Spain',
+          subtitle: {
+            text: 'Spain',
+            icon: "fa fa-flag"
+          },
           color: '#1abc9c',
           isSelected: false,
           imgUrl: 'https://www.resa.es/wp-content/uploads/2015/07/icon-user-default.png',
@@ -154,7 +196,10 @@ export class TestCarousel {
           id: 14,
           title: 'User 14',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
-          country: 'Spain',
+          subtitle: {
+            text: 'Spain',
+            icon: "fa fa-flag"
+          },
           color: '#e67e22',
           isSelected: false,
           imgUrl: 'https://www.resa.es/wp-content/uploads/2015/07/icon-user-default.png',
@@ -164,7 +209,10 @@ export class TestCarousel {
           id: 15,
           title: 'User 15',
           description: 'Wait a minute. Wait a minute, Doc. Uhhh...',
-          country: 'Spain',
+          subtitle: {
+            text: 'Spain',
+            icon: "fa fa-flag"
+          },
           color: '#e74c3c',
           isSelected: false,
           imgUrl: 'https://www.resa.es/wp-content/uploads/2015/07/icon-user-default.png',
