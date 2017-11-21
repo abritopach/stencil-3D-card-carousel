@@ -111,7 +111,7 @@ export class St3DCardCarousel {
       let myClass = 'carousel-slide-item slide-item' + item.id;
       return (
         <div class={myClass} style={divStyle} onClick={ () => this.onHandleClick(this.items[index])}>
-        <img src={item.imgUrl}/>
+        {item.imgUrl ? <img src={item.imgUrl}/> :  []}
         <h2>{item.title}</h2>
         {item.subtitle.icon ?
           <p><i class={item.subtitle.icon}></i> {item.subtitle.text}</p>
